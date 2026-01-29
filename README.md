@@ -6,7 +6,7 @@ Aplikasi web untuk mencari produk di Amazon dengan tampilan monokrom yang elegan
 
 ```
 cari_barang_diAPI_amazon/
-├── app.py              # Main Flask application
+├── main.py              # Main Flask application
 ├── vercel.json         # Vercel configuration
 ├── requirements.txt    # Python dependencies
 ├── templates/
@@ -25,7 +25,7 @@ cari_barang_diAPI_amazon/
 
 - **vercel.json**: Konfigurasi untuk Vercel deployment
 - **requirements.txt**: Daftar dependencies Python
-- **app.py**: Main application file
+- **main.py**: Main application file
 - **templates/index.html**: Template HTML dengan design monokrom
 
 ## Dependencies
@@ -46,7 +46,7 @@ cari_barang_diAPI_amazon/
 
 ```bash
 pip install -r requirements.txt
-python app.py
+python main.py
 ```
 
 Buka browser di `http://localhost:5000`
