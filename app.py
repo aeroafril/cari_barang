@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from main import scrape_amazon
+from api.main import scrape_amazon
 
 app = Flask(__name__)
 

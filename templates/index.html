@@ -4,39 +4,176 @@
     <meta charset="UTF-8">
     <title>Amazon Product Search</title>
     <style>
-        body { font-family: sans-serif; padding: 30px; background: #f8f9fa; }
-        h1 { text-align: center; }
-        form { max-width: 500px; margin: 0 auto 30px auto; display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border-bottom: 1px solid #ddd; }
-        th { background: #007bff; color: white; }
-        tr:nth-child(even) { background: #f2f2f2; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 { 
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+        
+        form { 
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            gap: 12px;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        input { 
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #404040;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #666666;
+            background: #222222;
+        }
+        
+        input::placeholder {
+            color: #888888;
+        }
+        
+        button { 
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4a4a4a 0%, #333333 100%);
+            color: #ffffff;
+            border: 2px solid #555555;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #555555 0%, #3a3a3a 100%);
+            border-color: #666666;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        th, td { 
+            padding: 16px 20px;
+            border-bottom: 1px solid #404040;
+            text-align: left;
+        }
+        
+        th { 
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 14px;
+        }
+        
+        tr:hover {
+            background: #333333;
+        }
+        
+        tr:nth-child(even) { 
+            background: #252525;
+        }
+        
+        tr:nth-child(even):hover {
+            background: #333333;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .error-message {
+            text-align: center;
+            color: #cccccc;
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #666666;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        td:first-child {
+            color: #f0f0f0;
+        }
+        
+        td:last-child {
+            color: #b0b0b0;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
-    <h1>Cari Produk Amazon</h1>
-    <form method="POST">
-        <input type="text" name="keyword" placeholder="Contoh: wireless mouse" value="{{ keyword }}">
-        <button type="submit">Cari</button>
-    </form>
+    <div class="container">
+        <h1>Cari Produk Amazon</h1>
+        <form method="POST">
+            <input type="text" name="keyword" placeholder="Contoh: wireless mouse" value="{{ keyword }}">
+            <button type="submit">Cari</button>
+        </form>
 
-    {% if hasil %}
-    <table>
-        <tr>
-            <th>Nama Produk</th>
-            <th>Harga</th>
-        </tr>
-        {% for item in hasil %}
-        <tr>
-            <td>{{ item.nama }}</td>
-            <td>{{ item.harga }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% elif keyword %}
-        <p style="text-align:center; color: #e74c3c;">Produk tidak ditemukan atau halaman diblokir.</p>
-    {% endif %}
+        {% if hasil %}
+        <table>
+            <tr>
+                <th>Nama Produk</th>
+                <th>Harga</th>
+            </tr>
+            {% for item in hasil %}
+            <tr>
+                <td>{{ item.nama }}</td>
+                <td>{{ item.harga }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% elif keyword %}
+            <p class="error-message">Produk tidak ditemukan atau halaman diblokir.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
